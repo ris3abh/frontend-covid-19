@@ -1,4 +1,4 @@
-// creating a component for the navbar using material-ui and making it responsive
+//login button opens a popup window from LoginPage.js
 
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
@@ -38,8 +38,8 @@ export default function NavBar() {
                     <Button color="inherit"><Link to="/register" style={{ textDecoration: 'none', color: 'white' }}>Register</Link></Button>
                 </Toolbar>
             </AppBar>
-
         </div>
+        
     );
 }
 

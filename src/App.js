@@ -1,5 +1,4 @@
 import './App.css';
-import NavBar from './components/NavBar';
 import {Route, Routes} from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
@@ -13,7 +12,6 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
       </Routes>
-      <NavBar />
     </div>
   );
 }

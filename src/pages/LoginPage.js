@@ -1,4 +1,6 @@
-import React from 'react';
+//create a regiter page with a form that has a username, email, password, and confirm password field and a submit button that will send the data to the backend
+
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import { makeStyles } from '@material-ui/core/styles';
@@ -28,11 +30,20 @@ const useStyles = makeStyles((theme) => ({
         width: theme.spacing(4),
         height: theme.spacing(4),
     },
-    //setting the login form in the middle of the page
-    
+    container: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+    },
+    image: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+    },
 }));
 
-//creating form validation for login
 const validate = values => {
     const errors = {};
     const requiredFields = [
@@ -50,48 +61,89 @@ const validate = values => {
     ) {
         errors.email = 'Invalid email address';
     }
+    if (
+        values.password &&
+        !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i.test(values.password)
+    ) {
+        errors.password = 'Password must contain at least 8 characters, one letter, and one number';
+    }
     return errors;
-};
+}
+// setting validation on button click
+const onSubmit = (values) => {
+    console.log(values);
+}
 
-
-export default function LoginPage() {
+export default function RegisterPage() {
     const classes = useStyles();
+    const [values, setValues] = React.useState({
+        email: '',
+        password: '',
+    });
+    const [errors, setErrors] = React.useState({});
+
+    const handleChange = (prop) => (event) => {
+        setValues({ ...values, [prop]: event.target.value });
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        setErrors(validate(values));
+    };
 
     return (
         <div>
             <NavBar />
-            <Container maxWidth="lg" alignContent= "center" justify="center">
-                <Grid container spacing={3} >
-                    <Grid item xs={12} sm={6} style={{ marginTop: '30vh' }}>
+            <Container className={classes.container} maxWidth="lg">
+            <Grid item xs={6}>
                         <Paper className={classes.paper}>
                             <Box m={2}>
                                 <Typography variant="h5" component="h2">
-                                    Login
+                                    Log In
                                 </Typography>
                             </Box>
                             <Box m={2}>
-                                <form className={classes.root} noValidate autoComplete="off">
-                                    <TextField id="outlined-basic" label="Email" variant="outlined" />
-                                    <TextField id="outlined-basic" label="Password" variant="outlined" />
-                                    <Button variant="contained" color="primary">
-                                        Login
-                                    </Button>
+                                <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
+                                    <TextField
+                                        id="email"
+                                        label="Email"
+                                        variant="outlined"
+                                        value={values.email}
+                                        onChange={handleChange('email')}
+                                        error={errors.email ? true : false}
+                                        helperText={errors.email}
+                                    />
+                                    <TextField
+                                        id="password"
+                                        label="Password"
+                                        variant="outlined"
+                                        type="password"
+                                        value={values.password}
+                                        onChange={handleChange('password')}
+                                        error={errors.password ? true : false}
+                                        helperText={errors.password}
+                                    />
+                                    <Box m={2}>
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            type="submit"
+                                            align = "center"
+                                        >
+                                            Sign Up
+                                        </Button>
+
+                                    </Box>
                                 </form>
-                            </Box>
-                            
-                            <Box m={2}>
-                                <Typography variant="body2" component="p">
-                                    Don't have an account? <Link to="/register" style={{ textDecoration: 'none', color: 'black' }}>Register</Link>
-                                </Typography>
                             </Box>
                         </Paper>
                     </Grid>
-                    <Grid item xs={12} sm={6} style={{ marginTop: '13vh' }}>
-                        <div className={classes.paper}>
+                    <Grid item xs={6}>
+                        <div className={classes.image}>
                             <img src={image} alt="contact" />
                         </div>
                     </Grid>
-                </Grid>
+
             </Container>
         </div>
     );

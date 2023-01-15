@@ -1,6 +1,4 @@
-//create a regiter page with a form that has a username, email, password, and confirm password field and a submit button that will send the data to the backend
-
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,7 +9,6 @@ import { Paper } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { Container } from '@material-ui/core';
 import { Box } from '@material-ui/core';
-import { Avatar } from '@material-ui/core';
 import image from '../assets/contact2.png';
 
 const useStyles = makeStyles((theme) => ({
@@ -152,12 +149,19 @@ export default function RegisterPage() {
                                         error={errors.confirmPassword ? true : false}
                                         helperText={errors.confirmPassword}
                                     />
-                                    <Box m={2}>
-                                        <Button variant="contained" color="primary" type="submit">
-                                            Sign Up
-                                        </Button>
-                                    </Box>
                                 </form>
+                            </Box>
+                            <br />
+                            <Box m={4}>
+                                <Button variant="contained" color="primary" type="submit">
+                                    Sign Up
+                                </Button>
+                            </Box>
+                            <br />
+                            <Box m={2} >
+                                <Typography variant="body2" component="p">
+                                    Already have an account? <Link to="/login">Login</Link>
+                                </Typography>
                             </Box>
                         </Paper>
                     </Grid>

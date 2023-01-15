@@ -1,5 +1,4 @@
-//create a login page with a link to register page, splitting the login page into two parts login form and an image using react material ui
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,6 +10,7 @@ import { Typography } from '@material-ui/core';
 import { Container } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 import { Avatar } from '@material-ui/core';
+import image from '../assets/contact2.png';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,10 +25,34 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.text.secondary,
     },
     large: {
-        width: theme.spacing(7),
-        height: theme.spacing(7),
+        width: theme.spacing(4),
+        height: theme.spacing(4),
     },
+    //setting the login form in the middle of the page
+    
 }));
+
+//creating form validation for login
+const validate = values => {
+    const errors = {};
+    const requiredFields = [
+        'email',
+        'password',
+    ];
+    requiredFields.forEach(field => {
+        if (!values[field]) {
+            errors[field] = 'Required';
+        }
+    });
+    if (
+        values.email &&
+        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+    ) {
+        errors.email = 'Invalid email address';
+    }
+    return errors;
+};
+
 
 export default function LoginPage() {
     const classes = useStyles();
@@ -36,13 +60,10 @@ export default function LoginPage() {
     return (
         <div>
             <NavBar />
-            <Container maxWidth="lg">
-                <Grid container spacing={3}>
-                    <Grid item xs={12} sm={6}>
+            <Container maxWidth="lg" alignContent= "center" justify="center">
+                <Grid container spacing={3} >
+                    <Grid item xs={12} sm={6} style={{ marginTop: '30vh' }}>
                         <Paper className={classes.paper}>
-                            <Box m={2}>
-                                <Avatar alt="Remy Sharp" src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" className={classes.large} />
-                            </Box>
                             <Box m={2}>
                                 <Typography variant="h5" component="h2">
                                     Login
@@ -50,13 +71,14 @@ export default function LoginPage() {
                             </Box>
                             <Box m={2}>
                                 <form className={classes.root} noValidate autoComplete="off">
-                                    <TextField id="outlined-basic" label="Username" variant="outlined" />
+                                    <TextField id="outlined-basic" label="Email" variant="outlined" />
                                     <TextField id="outlined-basic" label="Password" variant="outlined" />
                                     <Button variant="contained" color="primary">
                                         Login
                                     </Button>
                                 </form>
                             </Box>
+                            
                             <Box m={2}>
                                 <Typography variant="body2" component="p">
                                     Don't have an account? <Link to="/register" style={{ textDecoration: 'none', color: 'black' }}>Register</Link>
@@ -64,10 +86,10 @@ export default function LoginPage() {
                             </Box>
                         </Paper>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <Paper className={classes.paper}>
-                            <img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt="login" />
-                        </Paper>
+                    <Grid item xs={12} sm={6} style={{ marginTop: '13vh' }}>
+                        <div className={classes.paper}>
+                            <img src={image} alt="contact" />
+                        </div>
                     </Grid>
                 </Grid>
             </Container>

@@ -36,6 +36,7 @@ export default function NavBar() {
                     </Typography>
                     <Button color="inherit"><Link to="/login" style={{ textDecoration: 'none', color: 'white' }}>Login</Link></Button>
                     <Button color="inherit"><Link to="/register" style={{ textDecoration: 'none', color: 'white' }}>Register</Link></Button>
+                    <Button color="inherit"><Link to="/developers" style={{ textDecoration: 'none', color: 'white' }}>Developers</Link></Button>
                 </Toolbar>
             </AppBar>
         </div>
